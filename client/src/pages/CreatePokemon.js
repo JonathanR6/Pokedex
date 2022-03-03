@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { validate, formComplete } from "../utils/utilsForm";
+import Form from "../components/Form";
+import "../styles/form.css";
+import "../styles/types.css";
+import "../styles/filter.css";
 
 import { allTypes } from "../store/actions";
 
@@ -8,140 +13,179 @@ const CreatePokemon = () => {
   const { types } = useSelector((state) => state.typesReducer);
   const dispatch = useDispatch();
 
+  const data = {
+    name: "",
+    sprites: "",
+    health: 1,
+    attack: 1,
+    defense: 1,
+    speed: 1,
+    height: "",
+    weight: "",
+    types: [],
+  };
+
   useEffect(() => {
     types.length || dispatch(allTypes());
   }, [dispatch, types.length]);
 
-  const [value, setValue] = useState({
-    name: "",
-    sprites: "",
-    vida: 1,
-    fuerza: 1,
-    defensa: 1,
-    velocidad: 1,
-    altura: 1,
-    peso: 1,
-    types: [],
-  });
+  const type = types.map((r) => r.name);
+
+  const [drop, setDrop] = useState(false);
+
+  const [create, setCreate] = useState(false);
+
+  const [error, setError] = useState("");
+
+  const [value, setValue] = useState({ ...data });
+
+  const handleDrop = () => {
+    return setDrop(!drop);
+  };
 
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value });
-    console.log(value.img);
+    setError(
+      validate({ ...value, [e.target.name]: e.target.value }, e.target.name)
+    );
   };
 
   const handleSelect = (e) => {
-    if (e.target.name === "types" && !value.types.includes(e.target.value)) {
+    if (!value.types.includes(e.target.id)) {
       setValue({
         ...value,
-        [e.target.name]: [...value.types, e.target.value],
+        types: [...value.types, e.target.id],
       });
+      setError(validate({ ...value, types: e.target.id }, "types"));
     }
+  };
+
+  const onClose = (e) => {
+    setValue({ ...value, types: value.types.filter((r) => r !== e) });
   };
 
   const handleSumit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3001/pokemons", {
-      method: "POST",
-      body: JSON.stringify(value),
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
-    console.log(value);
+    const formValidate = formComplete(value);
+    setError(formValidate);
+
+    if (formValidate.complete) {
+      fetch("http://localhost:3001/pokemons", {
+        method: "POST",
+        body: JSON.stringify(value),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      setCreate(!create);
+      setValue({ ...data });
+      setTimeout(() => setCreate(false), 5000);
+    }
   };
 
-  // const url =
-  //   "https://elvortex.com/wp-content/uploads/2018/03/HddtBOT-e1520478229723.png";
+  const date = ["health", "attack", "defense", "speed", "weight", "height"];
 
   return (
     <>
-      <h1>Create Pokemon</h1>
-      <Link to="/home">Volver</Link>
-      <form onSubmit={handleSumit}>
-        <img src={value.sprites} alt="poke imagen" />
-        {/* <img src={value.img ? value.img : url} alt="poke imagen" /> */}
-        <label>Imagen</label>
-        <input name="sprites" onChange={handleChange} />
-        <label>Nombre</label>
-        <input name="name" type="text" onChange={handleChange} />
+      <div className="pokeinfolink">
+        <Link to="/home">back</Link>
+      </div>
+      <form className="form" onSubmit={handleSumit}>
+        <header className="formheader">
+          <div className="container__name">
+            <input
+              value={value.name}
+              placeholder="Pokemon name"
+              autoComplete="off"
+              className="inputname"
+              name="name"
+              type="text"
+              onChange={handleChange}
+            />
+            {error.name && <p className="dangerinputs">{error.name}</p>}
+          </div>
+          <h4>Create Pokemon</h4>
+        </header>
 
-        <label>Vida</label>
-        <input
-          name="vida"
-          value={value.vida}
-          type="range"
-          min="1"
-          onChange={handleChange}
-        />
-        <input name="vida" value={value.vida} onChange={handleChange} />
+        <main className="formcontainer">
+          <div className="formimgcontainer">
+            {value.sprites ? (
+              <img className="formimg" src={value.sprites} alt="poke imagen" />
+            ) : (
+              <input
+                className="formimginput"
+                autoComplete="off"
+                placeholder="drag image"
+                name="sprites"
+                onChange={handleChange}
+              />
+            )}
+            {error.sprites && <p className="dangerinputs">{error.sprites}</p>}
+          </div>
 
-        <label>ataque</label>
-        <input
-          name="fuerza"
-          value={value.fuerza}
-          type="range"
-          min="1"
-          onChange={handleChange}
-        />
-        <input name="fuerza" value={value.fuerza} onChange={handleChange} />
+          <div className="valuescontainer">
+            <div className="inputscontainer">
+              {date.map((r) => {
+                return (
+                  <Form
+                    key={r}
+                    name={r}
+                    value={value[r]}
+                    type={r === "weight" || r === "height" ? "text" : "range"}
+                    min={"1"}
+                    danger={error}
+                    change={handleChange}
+                  />
+                );
+              })}
 
-        <label>defensa</label>
-        <input
-          name="defensa"
-          value={value.defensa}
-          type="range"
-          min="1"
-          onChange={handleChange}
-        />
-        <input name="defensa" value={value.defensa} onChange={handleChange} />
+              <div className="wh">
+                <div className="typesformcontainer">
+                  {value.types &&
+                    value.types.map((r, i) => (
+                      <div key={i} className={`${r} divtype nose`}>
+                        <p onClick={() => onClose(r)} className="typep p">
+                          {r}
+                        </p>
+                      </div>
+                    ))}
+                </div>
+                {error.types && <p className="dangerinputs">{error.types}</p>}
+              </div>
+              <div>
+                <div>
+                  <header className="filter" id="type" onClick={handleDrop}>
+                    Types{" "}
+                    <i
+                      className={`fa-solid fa-angle-down ${drop && "active"}`}
+                    ></i>
+                  </header>
+                </div>
 
-        <label>velocidad</label>
-        <input
-          name="velocidad"
-          value={value.velocidad}
-          type="range"
-          min="1"
-          onChange={handleChange}
-        />
-        <input
-          name="velocidad"
-          value={value.velocidad}
-          onChange={handleChange}
-        />
+                {drop && (
+                  <main className="select optionone">
+                    {type.map((r) => (
+                      <p
+                        id={r}
+                        name="types"
+                        key={r + Math.random()}
+                        onClick={handleSelect}
+                      >
+                        {r}
+                      </p>
+                    ))}
+                  </main>
+                )}
+              </div>
+            </div>
+          </div>
+        </main>
 
-        <label>altura</label>
-        <input
-          name="altura"
-          value={value.altura}
-          type="range"
-          min="1"
-          onChange={handleChange}
-        />
-        <input name="altura" value={value.altura} onChange={handleChange} />
-
-        <label>peso</label>
-        <input
-          name="peso"
-          value={value.peso}
-          type="range"
-          min="1"
-          onChange={handleChange}
-        />
-        <input name="peso" value={value.peso} onChange={handleChange} />
-
-        {value.types && value.types.map((r, i) => <p key={i}>{r}</p>)}
-        <select name="types" onChange={handleSelect}>
-          {types &&
-            types.map(({ name }) => {
-              return (
-                <option name="types" key={name} value={name}>
-                  {name}
-                </option>
-              );
-            })}
-        </select>
-        <button>Crear</button>
+        <div className="btncontainer">
+          <button className="btn">Create</button>
+        </div>
       </form>
+      {create && <p className="create">El pokemon fue creado correctamente</p>}
     </>
   );
 };

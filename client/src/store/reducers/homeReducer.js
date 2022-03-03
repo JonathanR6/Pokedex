@@ -2,9 +2,12 @@ import {
   POKEMONS_ERRORS,
   POKEMONS_LOADINGS,
   POKEMONS_RESULTS,
+  POKEMONS_PAGES,
 } from "../actions/homeAction";
 
 const homeState = {
+  pag: 0,
+  pages: 0,
   loading: false,
   pokemons: [],
   error: "",
@@ -20,13 +23,18 @@ const homeReducer = (state = homeState, action) => {
     case POKEMONS_RESULTS:
       return {
         ...state,
-        pokemons: [...action.payload],
+        pokemons: [...state.pokemons, ...action.payload],
         loading: false,
       };
     case POKEMONS_ERRORS:
       return {
         ...state,
         error: action.payload,
+      };
+    case POKEMONS_PAGES:
+      return {
+        ...state,
+        pages: action.payload,
       };
 
     default:
@@ -35,26 +43,3 @@ const homeReducer = (state = homeState, action) => {
 };
 
 export default homeReducer;
-
-// const reducerOne = (state = initialState, action) => {
-//   switch (action.type) {
-//     case GET_ALL_POKEMONS:
-//       return {
-//         ...state,
-//         pokemons: action.payload,
-//       };
-//     case GET_POKEMON:
-//       return {
-//         ...state,
-//         pokemon: action.payload,
-//       };
-//     case GET_TYPES:
-//       return {
-//         ...state,
-//         types: action.payload,
-//       };
-
-//     default:
-//       return { ...state };
-//   }
-// };

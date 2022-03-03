@@ -1,0 +1,45 @@
+.fondo {
+  position: fixed;
+
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+}
+
+.errorcontainer {
+  width: 300px;
+  height: auto;
+  background-color: #ffffff;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.errorheader {
+  padding: 5px 16px 0 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.errorp {
+  margin: 0px;
+  font-weight: 600;
+}
+
+.error {
+  padding: 16px 32px;
+}
+
+.errorh3 {
+  margin: 0px;
+}
+
+.linkerror {
+  text-decoration: none;
+  font-weight: 600;
+  color: #6c757d;
+}

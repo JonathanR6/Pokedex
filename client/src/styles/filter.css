@@ -1,0 +1,54 @@
+.filtercontainer {
+  position: relative;
+}
+
+.filter {
+  height: 32px;
+  border-style: none none solid;
+  border-color: #eb8134;
+  background-color: rgba(0, 0, 0, 0);
+  margin-bottom: 2px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.filter i {
+  transition: 0.4s ease-out;
+}
+
+.select {
+  display: block;
+  background-color: #ffffff;
+  position: absolute;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.17);
+  width: 126px;
+}
+
+.option button {
+  cursor: pointer;
+  border-style: none;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0px;
+}
+
+.option p {
+  cursor: pointer;
+}
+
+.optionone {
+  max-height: 60px;
+  overflow: auto;
+  padding: 5px;
+}
+
+.optionone p {
+  margin: 0px;
+  cursor: pointer;
+}
+
+.active {
+  transition: 0.4s ease-out;
+  transform: rotate(-180deg);
+}

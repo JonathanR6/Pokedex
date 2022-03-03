@@ -2,6 +2,7 @@ import { GET_TYPES } from "../actions/typeAction";
 
 const initialState = {
   types: [],
+  errorType: "",
 };
 
 const typesReducer = (state = initialState, action) => {

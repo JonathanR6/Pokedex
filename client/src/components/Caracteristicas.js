@@ -1,16 +1,16 @@
 import React from "react";
 
+import { heightFormat, weightFormat } from "../utils/weightAndHeight";
+
 const Caracteristicas = ({ height, weight }) => {
-  const altura =
-    height.length > 1 ? `${height[0]},${height[1]} mtrs` : `${height}0 cm`;
-  const peso =
-    weight.length > 2
-      ? `${weight[0]}${weight[1]},${weight[2]} kg`
-      : `${weight} kg`;
+  const altura = heightFormat(height);
+
+  const peso = weightFormat(weight);
+
   return (
     <>
-      <h4>altura: {altura}</h4>
-      <h4>peso: {peso}</h4>
+      <h4>height: {altura}</h4>
+      <h4>weight: {peso} kg</h4>
     </>
   );
 };

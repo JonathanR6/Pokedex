@@ -1,0 +1,27 @@
+.pokemonscontainer {
+  margin: 0px 60px 60px 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  /* gap: 65px; */
+  column-gap: 65px;
+  row-gap: 30px;
+}
+
+.pagcontainer {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.pagcontainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagcontainer a {
+  padding: 16px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #6c757d;
+}

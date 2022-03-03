@@ -1,0 +1,147 @@
+.load__container {
+  margin: 0px 60px 60px 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  column-gap: 65px;
+  row-gap: 30px;
+}
+
+.div__load {
+  display: flex;
+  justify-content: space-between;
+  width: 230px;
+  height: 100px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.17);
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #ffffff;
+  transition: 0.4s ease-out;
+}
+
+.load__img__container {
+  width: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.load__img {
+  margin-left: 10px;
+  width: 60px;
+  height: 70px;
+  border-radius: 5px;
+}
+
+.load__info {
+  display: flex;
+  flex-direction: column;
+  width: 130px;
+}
+
+.load__name {
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+}
+
+.load__container__type {
+  display: flex;
+}
+
+.load__type {
+  margin-right: 5px;
+  display: inline-block;
+
+  border-radius: 20px;
+  width: 50px;
+  height: 24px;
+}
+
+.load {
+  background: #adb5bd;
+  animation-name: load;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes load {
+  0% {
+    background: #adb5bd;
+  }
+  30% {
+    background: #e0e4e9;
+  }
+  60% {
+    background: #adb5bd;
+  }
+  100% {
+    background: #e0e4e9;
+  }
+}
+
+.infoload__container {
+  width: 908px;
+  height: 370;
+}
+
+.info__header {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.17);
+  margin-bottom: 16px;
+  padding-top: 16px;
+}
+
+.infoload__name {
+  width: 300px;
+  height: 2rem;
+  margin: 16px 16px;
+  border-radius: 5px;
+}
+
+.featuresload__container {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.17);
+  display: flex;
+  justify-content: space-around;
+  margin-top: 16px;
+}
+
+.imgstatsload__container {
+  display: flex;
+}
+
+.infoload__img {
+  width: 276px;
+  height: 280px;
+  margin-left: 16px;
+  margin-bottom: 16px;
+  border-radius: 5px;
+}
+
+.infostats__container {
+  width: 468px;
+  height: 280px;
+  margin: 0 73px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.info__stats {
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+}
+
+.featuresload__h4 {
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+}
+
+/* c6ced6 */
+/* e0e4e9 */

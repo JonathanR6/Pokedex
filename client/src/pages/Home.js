@@ -1,51 +1,65 @@
 import React, { useEffect } from "react";
+import "../styles/home.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllPokemons, fetchSearch } from "../store/actions/";
+import { fetchAllPokemons } from "../store/actions/";
 import { Link } from "react-router-dom";
 
-import Search from "../components/Search";
 import PokemonList from "../components/PokemonList";
+import Filters from "../components/Filters";
+import Search from "../components/Search";
+import Error from "../components/Error";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { pokemons, loading, error } = useSelector(
-    (store) => store.homeReducer
-  );
+  const { pokemons, loading, pages, error } = useSelector((s) => s.homeReducer);
 
   const { pokemon, searchError } = useSelector((s) => s.searchReducer);
 
+  const { filter } = useSelector((s) => s.filterReducer);
+
   useEffect(() => {
     pokemons.length || dispatch(fetchAllPokemons());
-  }, [dispatch, pokemons.length]);
+  }, [dispatch, pokemons.length, pokemon]);
 
-  const handleSearch = (name) => {
-    dispatch(fetchSearch(name));
-  };
+  if (error) {
+    return <Error error={error} />;
+  }
 
-  if (error.length) {
-    return <div>{error}</div>;
-  }
-  if (searchError.length) {
-    return <PokemonList back={"volver"} error={searchError} />;
-  }
+  const limit = filter.length ? filter.length / 12 : Math.ceil(pages / 12);
 
   return (
-    <>
-      <h1>Pokemons</h1>
-      <div>
+    <div className="homecontainer">
+      <Link className="imgcontainer" to="/">
+        <img className="logo" src={"../img/logo.png"} alt="logo" />
+      </Link>
+      <div className="nav">
         <Link to="/home/create">Create</Link>
-        <Search search={handleSearch} />
+        <Search />
+        <Filters values={pokemons} />
       </div>
 
+      {searchError && <Error error={searchError} backP={true} />}
+
       {pokemon.length ? (
-        <PokemonList pokemons={pokemon} back={"valver"} />
-      ) : loading ? (
-        <div>Cargando...</div>
+        <PokemonList
+          pokemons={pokemon}
+          pepe={pokemon}
+          load={false}
+          backP={true}
+          pagination={1}
+        />
+      ) : filter.length ? (
+        <PokemonList
+          pokemons={filter}
+          load={false}
+          backF={true}
+          pagination={Math.ceil(limit)}
+        />
       ) : (
-        <PokemonList pokemons={pokemons} />
+        <PokemonList pokemons={pokemons} load={loading} pagination={limit} />
       )}
-    </>
+    </div>
   );
 };
 

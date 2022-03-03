@@ -1,0 +1,23 @@
+.pagdiv {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 16px;
+  text-align: center;
+  border: #eb8134;
+  align-items: center;
+}
+
+.pagtext {
+  padding: 0 16px;
+  font-weight: bold;
+}
+
+.pagbtn {
+  height: 32px;
+  width: 32px;
+  background-color: #eb8134;
+  border-radius: 20px;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}

@@ -11,7 +11,7 @@ export const allTypes = () => (dispatch) => {
   fetch(`http://localhost:3001/types`)
     .then((r) => r.json())
     .then((r) => dispatch(typesResults(r)))
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) =>
+      console.log("hubo un error al hacer la peticion de los tipos")
+    );
 };

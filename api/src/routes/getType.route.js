@@ -6,18 +6,27 @@ const getType = Router();
 
 //normal, fire, water, electric, grass, ice, fighting, poison, ground, flying, psychic, bug, rock, ghost, dragon, darck, steel, fairy
 getType.get("/", async (req, res) => {
-  // let nose = await fetch("https://pokeapi.co/api/v2/type/")
-  //   .then((r) => r.json())
-  //   .then((r) => r.results.map((r) => r.name));
-  // nose = nose.filter((r) => r !== "unknown" && r !== "shadow");
+  const type = await Type.findAll();
 
-  // nose.map((r) => {
-  //   Type.create({
-  //     name: r,
-  //   });
-  // });
+  if (!type.length) {
+    try {
+      let fetchTypes = await fetch("https://pokeapi.co/api/v2/type/")
+        .then((r) => r.json())
+        .then((r) => r.results.map((r) => r.name));
+      fetchTypes = fetchTypes.filter((r) => r !== "unknown" && r !== "shadow");
+      fetchTypes.map((r) => {
+        Type.create({
+          name: r,
+        });
+      });
+      const types = await Type.findAll();
+      return res.json(types);
+    } catch (err) {
+      console.log("ERROR /types", err);
+    }
+  }
 
-  Type.findAll().then((r) => res.json(r));
+  res.json(type);
 });
 
 module.exports = getType;

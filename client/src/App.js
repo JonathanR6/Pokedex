@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import LandinPage from "./pages/LandinPage";
+import LandignPage from "./pages/LandingPage";
 import Home from "./pages/Home";
 import PokemonInfo from "./pages/PokemonInfo";
 import NotFound from "./pages/NotFound";
@@ -10,9 +10,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LandinPage />} />
+        <Route path="/" element={<LandignPage />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/home/:name" element={<PokemonInfo />} />
+        <Route path="/home/:id" element={<PokemonInfo />} />
         <Route path="/home/create" element={<CreatePokemon />} />
         <Route path="/home/search" element={<Search />} />
         <Route path="*" element={<NotFound />} />

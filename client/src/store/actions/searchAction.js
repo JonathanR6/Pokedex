@@ -1,6 +1,13 @@
+export const POKEMON_LOADING = "POKEMON_LOADING";
 export const EMPTY_POKEMON = "EMPTY_POKEMON";
 export const POKEMON_RESULT = "POKEMON_RESULT";
 export const POKEMON_ERROR = "POKEMON_ERROR";
+
+export const pokemonLoading = () => {
+  return {
+    type: POKEMON_LOADING,
+  };
+};
 
 export const emptyPokemon = () => {
   return {
@@ -23,6 +30,7 @@ const pokemonError = (value) => {
 };
 
 export const fetchSearch = (name) => (dispatch) => {
+  dispatch(pokemonLoading());
   fetch(`http://localhost:3001/pokemons?name=${name}`)
     .then((r) => r.json())
     .then((r) => dispatch(pokemonResult(r)))

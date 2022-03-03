@@ -2,6 +2,7 @@ import {
   POKEINFO_ERROR,
   POKEINFO_LOADING,
   POKEINFO_RESULT,
+  EMPTY_POKEINFO,
 } from "../actions/pokeInfoAction";
 
 const initialState = {
@@ -23,10 +24,16 @@ const pokeInfoReducer = (state = initialState, action) => {
         pokemon: action.payload,
         loading: false,
       };
+    case EMPTY_POKEINFO:
+      return {
+        ...state,
+        pokemon: {},
+      };
     case POKEINFO_ERROR:
       return {
         ...state,
         error: action.payload,
+        loading: false,
       };
 
     default:

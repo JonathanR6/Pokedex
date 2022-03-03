@@ -2,8 +2,9 @@ const fetch = require("node-fetch");
 
 const peticiones = async (url) => {
   return fetch(url)
-    .then((r) => (r.status !== 404 ? r.json() : undefined))
-    .then((r) => r);
+    .then((r) => r.json())
+    .then((r) => r)
+    .catch((err) => console.log("ERROR util peticiones", err));
 };
 
 const datos = (arg) => {
@@ -14,7 +15,9 @@ const datos = (arg) => {
 };
 
 const dataFormat = (arg) => {
+  if (!arg) return;
   return {
+    id: arg.id,
     name: arg.name,
     sprites: {
       front_default: arg.sprites.front_default,
@@ -40,21 +43,22 @@ const muchos = async (arg) => {
 
 const dbFormat = (arg) => {
   return {
+    id: arg.id,
     name: arg.name,
     sprites: { front_default: arg.sprites },
     stats: [
-      { base_stat: arg.vida },
-      { base_stat: arg.fuerza },
-      { base_stat: arg.defensa },
-      { base_stat: arg.velocidad },
+      { base_stat: arg.health },
+      { base_stat: arg.attack },
+      { base_stat: arg.defense },
+      { base_stat: arg.speed },
     ],
     types: [
       ...arg.types.map((r) => {
         return { type: { name: r.name } };
       }),
     ],
-    weight: arg.altura,
-    height: arg.peso,
+    weight: arg.weight,
+    height: arg.height,
   };
 };
 

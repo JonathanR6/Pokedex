@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const fetch = require("node-fetch");
 const { Pokemon, Type } = require("../db");
 const { peticiones, datos, muchos, dbFormat } = require("./util");
 
@@ -23,9 +22,11 @@ routePokemon.get("/", async (req, res) => {
   if (dbF) {
     return res.json(dbF);
   }
-  let peticion = await peticiones(`https://pokeapi.co/api/v2/pokemon/${name}`);
 
-  if (name && peticion) {
+  if (name) {
+    let peticion = await peticiones(
+      `https://pokeapi.co/api/v2/pokemon/${name}`
+    );
     let data = datos(peticion);
     return res.json(data);
   }
@@ -35,7 +36,7 @@ routePokemon.get("/", async (req, res) => {
     const dbPokemons = await Pokemon.findAll({
       include: { model: Type, attributes: ["name"] },
     });
-    const pokeData = dbPokemons.map((r) => dbFormat(r));
+    const pokeData = pag === "0" ? dbPokemons.map((r) => dbFormat(r)) : "";
 
     const results = await muchos(url);
     const data = datos(results);
@@ -45,11 +46,28 @@ routePokemon.get("/", async (req, res) => {
   res.status(404).send("error");
 });
 
-routePokemon.get("/:idPokemon", (req, res) => {
+routePokemon.get("/:idPokemon", async (req, res) => {
   const { idPokemon } = req.params;
-  fetch(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)
-    .then((r) => r.json())
-    .then((r) => res.json(r));
+
+  if (idPokemon.includes("-")) {
+    const db = await Pokemon.findByPk(idPokemon, {
+      include: { model: Type, attributes: ["name"] },
+    });
+
+    if (db) {
+      const dbF = dbFormat(db);
+      return res.json(dbF);
+    }
+  }
+
+  const pokemon = await peticiones(
+    `https://pokeapi.co/api/v2/pokemon/${idPokemon}`
+  );
+
+  if (!pokemon) return res.status(404).send("error");
+
+  const data = datos(pokemon);
+  res.json(data);
 });
 
 module.exports = routePokemon;

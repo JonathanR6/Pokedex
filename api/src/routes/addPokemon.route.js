@@ -7,12 +7,12 @@ addPokemon.post("/", async (req, res) => {
   const {
     name,
     sprites,
-    vida,
-    fuerza,
-    defensa,
-    velocidad,
-    altura,
-    peso,
+    health,
+    attack,
+    defense,
+    speed,
+    height,
+    weight,
     types,
   } = req.body;
 
@@ -20,12 +20,12 @@ addPokemon.post("/", async (req, res) => {
     let pokemon = await Pokemon.create({
       name,
       sprites,
-      vida,
-      fuerza,
-      defensa,
-      velocidad,
-      altura,
-      peso,
+      health,
+      attack,
+      defense,
+      speed,
+      height,
+      weight,
     });
 
     let type = await Promise.all(
@@ -34,9 +34,9 @@ addPokemon.post("/", async (req, res) => {
 
     pokemon.addTypes(type);
 
-    res.json({ exito: "Pokemon creado con exito" });
+    res.json(pokemon);
   } catch (err) {
-    res.json({ error: err });
+    res.json({ "create pokemon error": err });
   }
 });
 

@@ -1,0 +1,56 @@
+.infocontainer {
+  width: 908px;
+  height: 370;
+}
+
+.infoheader {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.17);
+  margin-bottom: 16px;
+}
+
+.caracteristicas {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.17);
+  display: flex;
+  justify-content: space-around;
+  margin-top: 16px;
+}
+
+.infoimg {
+  width: 276px;
+  height: 280px;
+  margin-left: 16px;
+  margin-bottom: 16px;
+}
+
+.imgstats {
+  display: flex;
+}
+
+.infoheader h1 {
+  padding: 16px;
+  margin: 0px;
+}
+
+.statscontainer {
+  width: 468px;
+  height: 280px;
+  margin: 0 73px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.pokeinfolink {
+  margin: 16px 0;
+}
+
+.pokeinfolink a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #6c757d;
+}

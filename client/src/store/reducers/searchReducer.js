@@ -2,6 +2,7 @@ import {
   POKEMON_ERROR,
   POKEMON_RESULT,
   EMPTY_POKEMON,
+  POKEMON_LOADING,
 } from "../actions/searchAction";
 
 const initialState = {
@@ -12,6 +13,11 @@ const initialState = {
 
 const searchReducer = (state = initialState, action) => {
   switch (action.type) {
+    case POKEMON_LOADING:
+      return {
+        ...state,
+        searchLoading: true,
+      };
     case EMPTY_POKEMON:
       return {
         ...state,

@@ -4,6 +4,8 @@ const { Router } = require("express");
 const routePokemon = require("./getPokemon.route");
 const addPokemon = require("./addPokemon.route");
 const getType = require("./getType.route");
+const pokemonDb = require("./getPokemonDb.route");
+const getPages = require("./getPages.route");
 
 const router = Router();
 
@@ -12,5 +14,7 @@ const router = Router();
 router.use("/pokemons", routePokemon);
 router.use("/pokemons", addPokemon);
 router.use("/types", getType);
+router.use("/filter", pokemonDb);
+router.use("/pages", getPages);
 
 module.exports = router;
