@@ -8,6 +8,7 @@ import "../styles/types.css";
 import "../styles/filter.css";
 
 import { allTypes, addLatest } from "../store/actions";
+const {API_URL} = process.env
 
 const CreatePokemon = () => {
   const { types } = useSelector((state) => state.typesReducer);
@@ -70,7 +71,7 @@ const CreatePokemon = () => {
     setError(formValidate);
 
     if (formValidate.complete) {
-      fetch("http://localhost:3001/pokemons", {
+      fetch(`${API_URL}/pokemons`, {
         method: "POST",
         body: JSON.stringify(value),
         headers: {

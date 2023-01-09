@@ -3,6 +3,8 @@ export const EMPTY_POKEMON = "EMPTY_POKEMON";
 export const POKEMON_RESULT = "POKEMON_RESULT";
 export const POKEMON_ERROR = "POKEMON_ERROR";
 
+const {API_URL} = process.env
+
 export const pokemonLoading = () => {
   return {
     type: POKEMON_LOADING,
@@ -31,7 +33,7 @@ const pokemonError = (value) => {
 
 export const fetchSearch = (name) => (dispatch) => {
   dispatch(pokemonLoading());
-  fetch(`http://localhost:3001/pokemons?name=${name}`)
+  fetch(`${API_URL}/pokemons?name=${name}`)
     .then((r) => r.json())
     .then((r) => dispatch(pokemonResult(r)))
     .catch((err) => {

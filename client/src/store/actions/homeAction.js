@@ -4,6 +4,8 @@ export const POKEMONS_ERRORS = "POKEMONS_ERRORS";
 export const POKEMONS_PAGES = "POKEMONS_PAGES";
 export const ADD_LATEST = "ADD_LATEST";
 
+const {API_URL} = process.env
+
 const pokemonsLoadings = () => {
   return {
     type: POKEMONS_LOADINGS,
@@ -32,7 +34,7 @@ const pages = (value) => {
 };
 
 export const addLatest = () => (dispatch) => {
-  fetch(`http://localhost:3001/db`)
+  fetch(`${API_URL}/db`)
     .then((r) => r.json())
     .then((r) =>
       dispatch({
@@ -48,10 +50,10 @@ export const fetchAllPokemons =
     dispatch(pokemonsLoadings());
 
     Promise.all([
-      fetch(`http://localhost:3001/pokemons?pag=${value}`)
+      fetch(`${API_URL}/pokemons?pag=${value}`)
         .then((r) => r.json())
         .then((r) => dispatch(pokemonsResults(r))),
-      fetch("http://localhost:3001/pages")
+      fetch(`${API_URL}/pages`)
         .then((r) => r.json())
         .then((r) => dispatch(pages(r))),
     ]).catch((err) => {
