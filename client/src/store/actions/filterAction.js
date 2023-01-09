@@ -7,6 +7,8 @@ export const ORDER_MY_POKEMONS = "ORDER_MY_POKEMONS";
 export const EMPTY_FILTER = "EMPTY_FILTER";
 export const FILTER_VALUE = "FILTER_VALUE";
 
+const {APP_URL} = process.env
+
 export const filterAz = (target, value) => (dispatch) => {
   dispatch(filterValue(target));
   dispatch({
@@ -49,7 +51,7 @@ export const filterType = (value, type) => (dispatch) => {
 
 export const filterMyPokemons = (value) => (dispatch) => {
   dispatch(filterValue(value));
-  fetch(`http://localhost:3001/filter`)
+  fetch(`${APP_URL}/filter`)
     .then((r) => r.json())
     .then((r) =>
       dispatch({
