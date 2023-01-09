@@ -1,6 +1,6 @@
 export const GET_TYPES = "GET_TYPES";
 
-const {API_URL} = process.env
+const {REACT_APP_API_URL} = process.env
 
 const typesResults = (value) => {
   return {
@@ -10,7 +10,7 @@ const typesResults = (value) => {
 };
 
 export const allTypes = () => (dispatch) => {
-  fetch(`${API_URL}/types`)
+  fetch(`${REACT_APP_API_URL}/types`)
     .then((r) => r.json())
     .then((r) => dispatch(typesResults(r)))
     .catch((err) =>
