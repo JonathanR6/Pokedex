@@ -6,6 +6,7 @@ const addPokemon = require("./addPokemon.route");
 const getType = require("./getType.route");
 const pokemonDb = require("./getPokemonDb.route");
 const getPages = require("./getPages.route");
+const addNewPokemon = require("./addNewPokemon/addNewPokemon");
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use("/pokemons", addPokemon);
 router.use("/types", getType);
 router.use("/filter", pokemonDb);
 router.use("/pages", getPages);
+router.use("/db", addNewPokemon);
 
 module.exports = router;

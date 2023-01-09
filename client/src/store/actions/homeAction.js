@@ -2,6 +2,7 @@ export const POKEMONS_LOADINGS = "POKEMONS_LOADINGS";
 export const POKEMONS_RESULTS = "POKEMONS_RESULTS";
 export const POKEMONS_ERRORS = "POKEMONS_ERRORS";
 export const POKEMONS_PAGES = "POKEMONS_PAGES";
+export const ADD_LATEST = "ADD_LATEST";
 
 const pokemonsLoadings = () => {
   return {
@@ -28,6 +29,17 @@ const pages = (value) => {
     type: POKEMONS_PAGES,
     payload: value,
   };
+};
+
+export const addLatest = () => (dispatch) => {
+  fetch(`http://localhost:3001/db`)
+    .then((r) => r.json())
+    .then((r) =>
+      dispatch({
+        type: ADD_LATEST,
+        payload: r,
+      })
+    );
 };
 
 export const fetchAllPokemons =

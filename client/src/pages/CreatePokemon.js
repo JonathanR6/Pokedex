@@ -7,7 +7,7 @@ import "../styles/form.css";
 import "../styles/types.css";
 import "../styles/filter.css";
 
-import { allTypes } from "../store/actions";
+import { allTypes, addLatest } from "../store/actions";
 
 const CreatePokemon = () => {
   const { types } = useSelector((state) => state.typesReducer);
@@ -77,6 +77,7 @@ const CreatePokemon = () => {
           "Content-type": "application/json",
         },
       });
+      dispatch(addLatest());
       setCreate(!create);
       setValue({ ...data });
       setTimeout(() => setCreate(false), 5000);

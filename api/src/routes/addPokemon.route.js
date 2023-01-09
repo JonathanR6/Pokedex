@@ -32,7 +32,7 @@ addPokemon.post("/", async (req, res) => {
       types.map((typer) => Type.findOne({ where: { name: typer } }))
     );
 
-    pokemon.addTypes(type);
+    const espera = await pokemon.addTypes(type);
 
     res.json(pokemon);
   } catch (err) {
