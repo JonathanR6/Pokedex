@@ -5,7 +5,7 @@ export const formComplete = (value) => {
 
   if (!comName.test(value.name)) {
     validate.name =
-      "el nombre no puede estar vacio, y solo debe contener letras minusculas";
+      "the name cannot be empty, and must only contain lowercase letters";
   }
 
   if (!value.sprites) {

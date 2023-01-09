@@ -1,4 +1,4 @@
-import { fetchAllPokemons } from "./homeAction";
+import { fetchAllPokemons, addLatest } from "./homeAction";
 import { fetchPokeInfo, empryPokeinfo } from "./pokeInfoAction";
 import { fetchSearch, emptyPokemon } from "./searchAction";
 import { allTypes } from "./typeAction";
@@ -21,6 +21,7 @@ import {
 
 export {
   fetchAllPokemons,
+  addLatest,
   fetchPokeInfo,
   fetchSearch,
   emptyPokemon,
