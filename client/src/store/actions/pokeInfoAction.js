@@ -3,7 +3,7 @@ export const POKEINFO_RESULT = "POKEINFO_RESULT";
 export const POKEINFO_ERROR = "POKEINFO_EROR";
 export const EMPTY_POKEINFO = "EMPTY_POKEINFO";
 
-const {API_URL} = process.env
+const {REACT_APP_API_URL} = process.env
 
 const pokeInfoLoading = () => {
   return {
@@ -33,7 +33,7 @@ export const empryPokeinfo = () => {
 
 export const fetchPokeInfo = (id) => (dispatch) => {
   dispatch(pokeInfoLoading());
-  fetch(`${API_URL}/pokemons/${id}`)
+  fetch(`${REACT_APP_API_URL}/pokemons/${id}`)
     .then((r) => r.json())
     .then((r) => dispatch(pokeInfoResult(r)))
     .catch((err) => {
